@@ -51,9 +51,8 @@ export const createNewUserMessage = (content) => ({
 // Main response conditions
 export const responseConditions = [
   {
-    check: (message) =>
-      ['connect me to a human', 'connect me to an agent', 'talk to human', 'talk to agent', 'human agent', 'live agent', 'customer support']
-        .some((phrase) => message.toLowerCase().includes(phrase)),
+    check: (message) => ['connect me to a human', 'connect me to an agent', 'talk to human', 'talk to agent', 'human agent', 'live agent', 'customer support']
+      .some((phrase) => message.toLowerCase().includes(phrase)),
     response: () => ({
       content: 'I am connecting you to a human agent now. Please hold on a moment...',
       reference: 'connect-human-agent',
@@ -61,9 +60,8 @@ export const responseConditions = [
     }),
   },
   {
-    check: (message) =>
-      ['support', 'help', 'contact', 'assistance', 'customer service', 'technical support']
-        .some((keyword) => message.toLowerCase().includes(keyword)),
+    check: (message) => ['support', 'help', 'contact', 'assistance', 'customer service', 'technical support']
+      .some((keyword) => message.toLowerCase().includes(keyword)),
     response: () => ({
       content:
         'You can contact Konza Technopolis Development Authority at:\n'
@@ -79,11 +77,8 @@ export const responseConditions = [
   {
     check: (message) => {
       const lower = message.toLowerCase();
-      const isStart = CONVERSATION_START.some((start) =>
-        lower.includes(start.toLowerCase())
-      );
-      const isSupport = ['support', 'help', 'contact', 'assistance']
-        .some((k) => lower.includes(k));
+      const isStart = CONVERSATION_START.some((start) => lower.includes(start.toLowerCase()));
+      const isSupport = ['support', 'help', 'contact', 'assistance'].some((k) => lower.includes(k));
       return isStart && !isSupport;
     },
     response: () => ({
@@ -105,13 +100,11 @@ export const responseConditions = [
     }),
   },
   {
-    check: (message) =>
-      INVEST_OPTIONS.some(
-        ({ response }) => response.toLowerCase() === message.toLowerCase()
-      ),
+    check: (message) => INVEST_OPTIONS
+      .some(({ response }) => response.toLowerCase() === message.toLowerCase()),
     response: (context) => {
       const investOption = INVEST_OPTIONS.find(
-        ({ response }) => response.toLowerCase() === context.message.toLowerCase()
+        ({ response }) => response.toLowerCase() === context.message.toLowerCase(),
       );
       return {
         content: investOption.description,
@@ -120,18 +113,16 @@ export const responseConditions = [
     },
   },
   {
-    check: (message) =>
-      ['invest', 'investment', 'investing', 'opportunities']
-        .some((keyword) => message.toLowerCase().includes(keyword)),
+    check: (message) => ['invest', 'investment', 'investing', 'opportunities']
+      .some((keyword) => message.toLowerCase().includes(keyword)),
     response: () => ({
       content: 'Here are some popular investment topics at Konza Technopolis:',
       options: INVEST_OPTIONS,
     }),
   },
   {
-    check: (message) =>
-      CONVERSATION_END
-        .some((end) => message.toLowerCase().includes(end.toLowerCase())),
+    check: (message) => CONVERSATION_END
+      .some((end) => message.toLowerCase().includes(end.toLowerCase())),
     response: () => ({
       content: 'Thank you for chatting with Konza AI Assistant. Have a wonderful day! 👋',
     }),

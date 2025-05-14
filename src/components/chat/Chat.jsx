@@ -62,27 +62,35 @@ export default function Chat() {
     <section className="self-center">
       <Card className="w-[440px]">
         <CardHeader>
-        <CardTitle>Konza AI Assistant</CardTitle>
-        <CardDescription>
-          Welcome! 👋<br/>
-          I’m here to answer your questions, guide you through Konza Technopolis, and help you discover all we have to offer.<br/><br/>
-          <b>Not sure where to start?</b> Just ask me anything-about our services, projects, opportunities, or how Konza can support your goals.<br/>
-        </CardDescription>
+          <CardTitle>Konza AI Assistant</CardTitle>
+          <CardDescription>
+            Welcome! 👋
+            <br />
+            I’m here to answer your questions, guide you through Konza Technopolis,
+            and help you discover all we have to offer.
+            <br />
+            <br />
+            <b>Not sure where to start?</b>
+            {' '}
+            Just ask me anything—about our services, projects, opportunities,
+            or how Konza can support your goals.
+            <br />
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[600px] w-full pr-4 mt-2">
-            {
-            messages.map((message, index) => (message.role === 'assistant'
-              ? (
+            {messages.map((message, index) => (
+              message.role === 'assistant' ? (
                 <div
                   ref={index === messages.length - 1 ? lastMessageRef : null}
                   key={message.id}
                 >
                   {renderBotMessage(message)}
                 </div>
+              ) : (
+                <UserMessage key={message.id} message={message} />
               )
-              : <UserMessage key={message.id} message={message} />))
-          }
+            ))}
             {isTyping && <LoadingDots />}
           </ScrollArea>
         </CardContent>
@@ -94,7 +102,9 @@ export default function Chat() {
               disabled={isFinishedConversation}
               onChange={(e) => setChatInput(e.target.value)}
             />
-            <Button disabled={isFinishedConversation} type="submit">Ask</Button>
+            <Button disabled={isFinishedConversation} type="submit">
+              Ask
+            </Button>
           </form>
         </CardFooter>
       </Card>
